@@ -1,25 +1,18 @@
-package activities;
-import java.util.*;
+package Activities;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 public class Activity2 {
-    public static void main(String[] args){
-        int[] number={10, 77, 10, 54, -11, 10};
-        System.out.println("List of Array"+Arrays.toString(number));
-
-        int Searchnum=10;
-        int Total=30;
-        System.out.println("Result: " + result(number,Searchnum,Total));
+    @Test
+    void notEnoughFunds() {
+        BankAccount account = new BankAccount(9);
+        assertThrows(NotEnoughFundsException.class, () -> account.withdraw(10),
+                "Balance must be greater than amount of withdrawal");
     }
-    public static boolean result(int[] numbers,int searchnum,int Total){
-        int temp=0;
-        for (int num : numbers){
-            if(num==searchnum) {
-                temp +=searchnum;
-            }
 
-            if(temp>Total){
-                break;
-            }
-        }
-        return temp == Total;
+    @Test
+    void enoughFunds() {
+        BankAccount account = new BankAccount(100);
+        assertDoesNotThrow(() -> account.withdraw(100));
     }
 }
